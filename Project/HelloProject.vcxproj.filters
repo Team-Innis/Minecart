@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Includes">
+      <UniqueIdentifier>{47634127-c3f4-47d6-861b-0ba43b146fd8}</UniqueIdentifier>
+      <Extensions>h;hpp;hcc</Extensions>
+    </Filter>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{ffaff272-4d4d-4f01-86db-71a581d4cac9}</UniqueIdentifier>
+      <Extensions>c;cpp;cc</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="source\HelloScene.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\HelloScene.hpp">
+      <Filter>Includes</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
