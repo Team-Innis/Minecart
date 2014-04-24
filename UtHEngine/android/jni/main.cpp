@@ -26,7 +26,7 @@
 #include <UtH/Platform/Input.hpp>
 #include <UtH/Engine/DefaultScene.hpp>
 
-#include "../../../HelloProject/include/HelloScene.hpp" //Your scene header.
+#include "../../../Project/include/HelloScene.hpp" //Your scene header.
 
 // Enumeration of scenes, giving name for each scene number
 enum SceneName
