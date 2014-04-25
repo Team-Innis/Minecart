@@ -11,4 +11,4 @@ SRC_LOC := $(LOCAL_PATH3)/Project/source/
 
 #Source files ie. $(SRC_LOC)HelloScene.cpp
 LOCAL_SRC_FILES += \
-$(SRC_LOC)HelloScene.cpp
+$(SRC_LOC)MenuScene.cpp

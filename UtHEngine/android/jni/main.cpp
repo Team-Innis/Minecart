@@ -26,13 +26,13 @@
 #include <UtH/Platform/Input.hpp>
 #include <UtH/Engine/DefaultScene.hpp>
 
-#include "../../../Project/include/HelloScene.hpp" //Your scene header.
+#include "../../../Project/include/MenuScene.hpp" //Your scene header.
 
 // Enumeration of scenes, giving name for each scene number
 enum SceneName
 {
     DEFAULT = UTHDefaultScene,
-    HELLO = 0,
+    MENU = 0,
     COUNT // Keep this last, it tells how many scenes there are
 };
 
@@ -41,8 +41,8 @@ void NewSceneFunc(int SceneID, uth::Scene* &CurScene)
 {
     switch (SceneID)
     {
-    case HELLO:
-        CurScene = new HelloScene();
+    case MENU:
+        CurScene = new MenuScene();
         break;
     default:
         CurScene = new uth::DefaultScene();

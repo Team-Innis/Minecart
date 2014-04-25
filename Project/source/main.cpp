@@ -1,7 +1,7 @@
 #include <UtH/Engine/UtHEngine.h> //UtHEngine main.
 #include <UtH/Engine/DefaultScene.hpp> //Default Scene. (Empty)
 
-#include "../include/HelloScene.hpp" //Your scene header.
+#include "../include/MenuScene.hpp" //Your scene header.
 
 //Names and IDs for all scenes
 enum SceneName
@@ -18,7 +18,7 @@ void NewSceneFunc(int SceneID, uth::Scene* &CurScene)
 	switch (SceneID)
 	{
 	case HELLO:
-		CurScene = new uth::DefaultScene();
+		CurScene = new MenuScene();
 		break;
 	default:
 		CurScene = new uth::DefaultScene();

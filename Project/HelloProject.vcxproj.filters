@@ -14,12 +14,12 @@
     <ClCompile Include="source\main.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="source\HelloScene.cpp">
+    <ClCompile Include="source\MenuScene.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\HelloScene.hpp">
+    <ClInclude Include="include\MenuScene.hpp">
       <Filter>Includes</Filter>
     </ClInclude>
   </ItemGroup>

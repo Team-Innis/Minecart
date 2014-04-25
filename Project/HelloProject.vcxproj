@@ -81,11 +81,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="source\HelloScene.cpp" />
+    <ClCompile Include="source\MenuScene.cpp" />
     <ClCompile Include="source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\HelloScene.hpp" />
+    <ClInclude Include="include\MenuScene.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
