@@ -17,10 +17,12 @@ bool MenuScene::Init()
 
 	// Creates new component and gives it to gameobject.
 	// Deleting component is done automatically.
-	uth::Text *titletext;
-	titletext = new uth::Text("bigbottom.ttf",48);
-	titletext->AddText(L"MINECART");
-	title.AddComponent(titletext);
+	//uth::Text *titletext;
+	//titletext = new uth::Text("bigbottom.ttf",48);
+	//titletext->AddText(L"MINECART");
+	//title.AddComponent(titletext);
+	uth::Sprite *titleSprite= new uth::Sprite("Minecartlogo.tga");
+	title.AddComponent(titleSprite);
 
 	uth::AnimatedSprite *animStart, *animHelp;
 	uth::Texture *buttonTexture = new uth::Texture("ButtonSheet.tga");
@@ -30,8 +32,8 @@ bool MenuScene::Init()
 	helpButton.AddComponent(animHelp);
 
 	uth::Text *startText, *helpText;
-	startText = new uth::Text("bigbottom.ttf",24);
-	helpText = new uth::Text("bigbottom.ttf",24);
+	startText = new uth::Text("minecart.ttf",24);
+	helpText = new uth::Text("minecart.ttf",24);
 	startText->AddText(L"START");
 	helpText->AddText(L"HELP");
 	sbText.AddComponent(startText);
@@ -49,11 +51,11 @@ bool MenuScene::Init()
 	main->AddGameObject(&sbText);
 	main->AddGameObject(&hbText);
 
-	title.transform.SetPosition(-192.f,-(uthEngine.GetWindow().GetSize().y/2.f)+72.f);
+	title.transform.SetPosition(0,-(uthEngine.GetWindow().GetSize().y/2.f)+125.f);
 	startButton.transform.Move(0,-45.f);
 	helpButton.transform.Move(0,45.f);
-	sbText.transform.Move(-24*2.5f,-45.f);
-	hbText.transform.Move(-24*2,45.f);
+	sbText.transform.Move(0,-45.f);
+	hbText.transform.Move(0,45.f);
 
 	return true;
 }
