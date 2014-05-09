@@ -7,7 +7,8 @@
 enum SceneName
 {
 	DEFAULT = UTHDefaultScene,
-	HELLO = 0,
+    MENU = 0,
+	GAME = 1,
 	COUNT // Keep this last, it tells how many scenes there are
 };
 
@@ -17,9 +18,11 @@ void NewSceneFunc(int SceneID, uth::Scene* &CurScene)
 {
 	switch (SceneID)
 	{
-	case HELLO:
+	case MENU:
 		CurScene = new MenuScene();
 		break;
+    //case GAME:
+    //    CurScene = new GameScene();
 	default:
 		CurScene = new uth::DefaultScene();
 		break;

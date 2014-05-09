@@ -21,41 +21,50 @@ bool MenuScene::Init()
 	//titletext = new uth::Text("bigbottom.ttf",48);
 	//titletext->AddText(L"MINECART");
 	//title.AddComponent(titletext);
-	uth::Sprite *titleSprite= new uth::Sprite("Minecartlogo.tga");
+	uth::Sprite *titleSprite= new uth::Sprite("Minecartlogo2.tga");
 	title.AddComponent(titleSprite);
 
-	uth::AnimatedSprite *animStart, *animHelp;
+	uth::AnimatedSprite *animStart, *animHelp, *animExit;
 	uth::Texture *buttonTexture = new uth::Texture("ButtonSheet.tga");
 	animStart = new uth::AnimatedSprite(buttonTexture,2,1,2,0.f);
 	animHelp = new uth::AnimatedSprite(buttonTexture,2,1,2,0.f);
+	animExit = new uth::AnimatedSprite(buttonTexture,2,1,2,0.f);
 	startButton.AddComponent(animStart);
 	helpButton.AddComponent(animHelp);
+    exitButton.AddComponent(animExit);
 
-	uth::Text *startText, *helpText;
+	uth::Text *startText, *helpText, *exitText;
 	startText = new uth::Text("minecart.ttf",24);
 	helpText = new uth::Text("minecart.ttf",24);
+	exitText = new uth::Text("minecart.ttf",24);
 	sbText.AddComponent(startText);
 	hbText.AddComponent(helpText);
+    exText.AddComponent(exitText);
 	startText->AddText(L"START");
 	helpText->AddText(L"HELP");
+    exitText->AddText(L"EXIT");
 
 	//Creating layers
-	bg = new uth::Layer("Background", 0);
-	main = new uth::Layer("Main", 1);
-	instructions = new uth::Layer("Help", 2); 
+    bg.reset(new uth::Layer("Background", 0));
+    main.reset(new uth::Layer("Main", 1));
+    instructions.reset(new uth::Layer("Help", 2)); 
 
 	//Placing objects to layers
 	main->AddGameObject(&title);
 	main->AddGameObject(&startButton);
 	main->AddGameObject(&helpButton);
+    main->AddGameObject(&exitButton);
 	main->AddGameObject(&sbText);
 	main->AddGameObject(&hbText);
+    main->AddGameObject(&exText);
 
 	title.transform.SetPosition(0,-(uthEngine.GetWindow().GetSize().y/2.f)+125.f);
 	startButton.transform.Move(0,-45.f);
 	helpButton.transform.Move(0,45.f);
+    exitButton.transform.Move(0, 135.f);
 	sbText.transform.Move(0,-45.f);
 	hbText.transform.Move(0,45.f);
+    exText.transform.Move(0, 135.f);
 
 	return true;
 }
@@ -63,20 +72,23 @@ bool MenuScene::Init()
 // Automatically called inside SceneManager.
 bool MenuScene::DeInit()
 {
-	delete main, instructions, bg;
 	return true;
 }
 
 // Update loop. Gone trought once per frame.
 bool MenuScene::Update(float dt)
 {
-	if(MouseOver(startButton))
+    if (MouseOver(startButton) && uthInput.Common.Event() == uth::InputEvent::CLICK)
 	{
-			
+        uthSceneM.GoToScene(1);
 	}
-	else if(MouseOver(helpButton))
+	else if (MouseOver(helpButton))
 	{
 
+	}
+    else if (MouseOver(exitButton) && uthInput.Common.Event() == uth::InputEvent::CLICK)
+	{
+        return false;
 	}
 
 	return true; // Update succeeded.

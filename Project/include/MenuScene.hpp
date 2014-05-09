@@ -11,8 +11,9 @@ class MenuScene : public uth::Scene
 {
 private: // Just place everything else as private.
 	uth::Shader m_shader;
-	uth::GameObject title, startButton, helpButton, sbText, hbText;
-	uth::Layer *main, *instructions, *bg;
+	uth::GameObject title, startButton, helpButton, exitButton, sbText, hbText, exText;
+    std::unique_ptr<uth::Layer> main, instructions, bg;
+
 public: // Every one of these public functions are required.
 	MenuScene();
 	~MenuScene();
