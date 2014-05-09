@@ -9,7 +9,6 @@
 #include <UtH/Engine/Particles/Affector.hpp>
 #include <UtH/Engine/Particles/Particle.hpp>
 
-
 namespace uth
 {
 
@@ -32,7 +31,7 @@ namespace uth
 
 
     private:
-        
+     
         void update(float dt);
         void draw(RenderTarget& target);
 

@@ -176,3 +176,6 @@ FakesAssemblies/
 Project/assets/
 UtHEngine/android/assets/
 !UtHEngine/winlibs/*
+UtHEngine/android/.classpath
+UtHEngine/android/.project
+UtHEngine/android/.settings/*

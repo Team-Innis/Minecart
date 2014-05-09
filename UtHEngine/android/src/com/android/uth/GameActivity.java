@@ -5,6 +5,7 @@ public class GameActivity extends android.app.NativeActivity
 	static
 	{
 		System.loadLibrary("openal");
-		System.loadLibrary("uthengine");
+		//System.loadLibrary("uthengine");
+		System.loadLibrary("uthgame");
 	}
 }

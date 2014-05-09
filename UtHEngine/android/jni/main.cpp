@@ -54,7 +54,9 @@ void NewSceneFunc(int SceneID, uth::Scene* &CurScene)
 void handle_cmd(android_app* app, int cmd)
 {
 	uthAndroidEngine.message = cmd;
+	WriteLog("handle_cmd");
 	((uth::Window*)app->userData)->processMessages();
+	WriteLog("((uth::Window*)app->userData)->processMessage");
 }
 
 void windowEventHandler(void* handle)
@@ -65,10 +67,12 @@ void windowEventHandler(void* handle)
 void android_main(android_app* state)
 {
 	app_dummy();
+	WriteLog("app_dummy");
 
 	uthAndroidEngine.initialized = false;
+	WriteLog("uthAndroidEngine.initialized = false");
 
-	uth::Window wndw;
+	uth::Window* wndw;
 	uth::FileReader::m_manager = state->activity->assetManager;
 
 	state->onAppCmd = handle_cmd;
@@ -84,16 +88,17 @@ void android_main(android_app* state)
 	state->userData = &wndw;
 
 	uthAndroidEngine.winEveHand = windowEventHandler;
+	WriteLog("uthAndroidEngine.winEveHand");
 
 
     uthSceneM.registerNewSceneFunc(NewSceneFunc, COUNT);
+	WriteLog("uthSceneM.registerNewSceneFunc");
 
 	while(1)
 	{
 		int ident;
 		int events;
 		android_poll_source* source;
-
 		while ((ident=ALooper_pollAll(0, NULL, &events,(void**)&source)) >= 0)
 		{
 			//Insteads of these two 'if' statement proper exit should be placed
@@ -103,7 +108,7 @@ void android_main(android_app* state)
 			}
 			if (state->destroyRequested != 0)
 			{
-				wndw.destroy();
+				wndw->destroy();
 				return;
 			}
 		}

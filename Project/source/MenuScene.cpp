@@ -11,7 +11,7 @@
 bool MenuScene::Init()
 {
 	// Some shader must be loaded and set window to use it
-	m_shader.LoadShader("Shaders/vertexshader.vert", "Shaders/fragmentshader.frag");
+	m_shader.LoadShader("Shaders/Default.vert", "Shaders/Default.frag");
 	m_shader.Use();
 	uthEngine.GetWindow().SetShader(&m_shader);
 
@@ -34,10 +34,10 @@ bool MenuScene::Init()
 	uth::Text *startText, *helpText;
 	startText = new uth::Text("minecart.ttf",24);
 	helpText = new uth::Text("minecart.ttf",24);
-	startText->AddText(L"START");
-	helpText->AddText(L"HELP");
 	sbText.AddComponent(startText);
 	hbText.AddComponent(helpText);
+	startText->AddText(L"START");
+	helpText->AddText(L"HELP");
 
 	//Creating layers
 	bg = new uth::Layer("Background", 0);

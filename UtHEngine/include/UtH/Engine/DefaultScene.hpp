@@ -2,11 +2,8 @@
 #ifndef DefaultScene_H_UTH
 #define DefaultScene_H_UTH
 
-#include <vector>
 #include <UtH/Engine/Scene.hpp>
-#include <UtH/Renderer/Camera.hpp>
-#include <UtH/Platform/HiResTimer.hpp>
-#include <UtH/Renderer/RenderTexture.hpp>
+#include <UtH/Engine/GameObject.hpp>
 
 namespace uth
 {
@@ -24,6 +21,8 @@ namespace uth
 		virtual bool Draw();
 	protected:
 		Shader* shader;
+		float totalTime;
+		GameObject* logo;
 	};
 }
 

@@ -15,13 +15,13 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := libopenal
+LOCAL_MODULE := openal
 LOCAL_SRC_FILES := ../libs/libopenal.so
 include $(PREBUILT_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := engine
-LOCAL_SRC_FILES := ../libs/libengine.a
+LOCAL_MODULE := uthengine
+LOCAL_SRC_FILES := ../libs/libuthengine.a
 include $(PREBUILT_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
@@ -41,13 +41,14 @@ include $(PREBUILT_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE    := uthengine
+LOCAL_MODULE    := uthgame
 LOCAL_SRC_FILES := main.cpp
+LOCAL_LDLIBS    := -llog -landroid -lEGL -lGLESv2 -lOpenSLES
+LOCAL_STATIC_LIBRARIES := android_native_app_glue uthengine libbox2d libfreetypegl freetype 
+LOCAL_SHARED_LIBRARIES := openal 
 
 include $(LOCAL_PATH)/../../../sources.mk
 
-LOCAL_LDLIBS    := -llog -landroid -lEGL -lGLESv2 -lOpenSLES
-LOCAL_STATIC_LIBRARIES := android_native_app_glue engine libbox2d libfreetypegl freetype
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../include/
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extinclude/
 
