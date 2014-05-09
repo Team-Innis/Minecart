@@ -14,8 +14,7 @@ bool GameScene::Init()
 	m_shader.LoadShader("Shaders/Default.vert", "Shaders/Default.frag");
 	m_shader.Use();
 	uthEngine.GetWindow().SetShader(&m_shader);
-
-
+    
 
 	return true;
 }

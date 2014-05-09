@@ -23,8 +23,15 @@ bool MenuScene::Init()
 	//titletext = new uth::Text("bigbottom.ttf",48);
 	//titletext->AddText(L"MINECART");
 	//title.AddComponent(titletext);
+    uth::Sprite *bgSprite = new uth::Sprite("title.tga");
+    background.AddComponent(bgSprite);
+
+    umath::vector2 res = uthEngine.GetWindow().GetSize();
+    background.transform.SetScale(res.x / bgSprite->GetSize().x, res.y / bgSprite->GetSize().y);
+
 	uth::Sprite *titleSprite= new uth::Sprite("Minecartlogo2.tga");
 	title.AddComponent(titleSprite);
+    title.transform.SetScale(0.68f, 0.68f);
 
 	uth::AnimatedSprite *animStart, *animHelp, *animExit;
 	uth::Texture *buttonTexture = new uth::Texture("ButtonSheet.tga");
@@ -35,16 +42,19 @@ bool MenuScene::Init()
 	helpButton.AddComponent(animHelp);
     exitButton.AddComponent(animExit);
 
-	uth::Text *startText, *helpText, *exitText;
+	uth::Text *startText, *helpText, *exitText, *bounceText;
 	startText = new uth::Text("minecart.ttf",24);
 	helpText = new uth::Text("minecart.ttf",24);
 	exitText = new uth::Text("minecart.ttf",24);
+	bounceText = new uth::Text("kenpixel.ttf",24);
 	sbText.AddComponent(startText);
 	hbText.AddComponent(helpText);
     exText.AddComponent(exitText);
+    jumpText.AddComponent(bounceText);
 	startText->AddText(L"START");
 	helpText->AddText(L"HELP");
     exitText->AddText(L"EXIT");
+    bounceText->AddText(L"Legal in Finland!", umath::vector4(1, 0.96f, 0.4, 1.f));
 
 	//Creating layers
     bg.reset(new uth::Layer("Background", 0));
@@ -52,6 +62,7 @@ bool MenuScene::Init()
     instructions.reset(new uth::Layer("Help", 2)); 
 
 	//Placing objects to layers
+    bg->AddGameObject(&background);
 	main->AddGameObject(&title);
 	main->AddGameObject(&startButton);
 	main->AddGameObject(&helpButton);
@@ -59,14 +70,21 @@ bool MenuScene::Init()
 	main->AddGameObject(&sbText);
 	main->AddGameObject(&hbText);
     main->AddGameObject(&exText);
+    main->AddGameObject(&jumpText);
+    
+    const float left = -res.x / 2.f;
+    const float x = left + 365.f;
 
-	title.transform.SetPosition(0,-(uthEngine.GetWindow().GetSize().y/2.f)+125.f);
-	startButton.transform.Move(0,-45.f);
-	helpButton.transform.Move(0,45.f);
-    exitButton.transform.Move(0, 135.f);
-	sbText.transform.Move(0,-45.f);
-	hbText.transform.Move(0,45.f);
-    exText.transform.Move(0, 135.f);
+	title.transform.SetPosition(x,-(uthEngine.GetWindow().GetSize().y/2.f)+125.f);
+
+	startButton.transform.Move(x,-45.f);
+	helpButton.transform.Move(x,45.f);
+    exitButton.transform.Move(x, 135.f);
+	sbText.transform.Move(x,-45.f);
+	hbText.transform.Move(x,45.f);
+    exText.transform.Move(x, 135.f);
+    jumpText.transform.Move(title.transform.GetPosition().x + 200.f, title.transform.GetPosition().y + 25.f);
+    jumpText.transform.Rotate(30.f);
 
 	return true;
 }
@@ -89,6 +107,12 @@ bool MenuScene::Update(float dt)
     {
         bool click = uthInput.Common.Event() == uth::InputEvent::CLICK;
 
+        static float sine = 0.f;
+        sine += 6.f * dt;
+        float wave = 0.25f * std::sinf(sine);
+
+        jumpText.transform.SetScale(0.8f + std::abs(wave));
+
         if (MouseOver(startButton) && click)
 	    {
             uthSceneM.GoToScene(1);
@@ -108,6 +132,8 @@ bool MenuScene::Update(float dt)
 // Draw loop. All graphics are drawn during this loop.
 bool MenuScene::Draw()
 {
+    bg->Draw(uthEngine.GetWindow());
+
     if (drawHelp)
         instructions->Draw(uthEngine.GetWindow());
     else

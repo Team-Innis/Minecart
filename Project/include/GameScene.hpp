@@ -12,6 +12,7 @@ class GameScene : public uth::Scene
 private: // Just place everything else as private.
 	uth::Shader m_shader;
 
+
 public: // Every one of these public functions are required.
 	GameScene();
 	~GameScene();
