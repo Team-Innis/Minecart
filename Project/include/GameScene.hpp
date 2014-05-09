@@ -1,23 +1,20 @@
 #pragma once
-#ifndef MenuScene_HPP
-#define MenuScene_HPP
+#ifndef GameScene_HPP
+#define GameScene_HPP
 
 #include <UtH/Engine/Scene.hpp>
 #include <UtH/Core/Shader.hpp>
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Engine/Layer.hpp>
 
-class MenuScene : public uth::Scene
+class GameScene : public uth::Scene
 {
 private: // Just place everything else as private.
 	uth::Shader m_shader;
-	uth::GameObject title, startButton, helpButton, exitButton, sbText, hbText, exText;
-    std::unique_ptr<uth::Layer> main, instructions, bg;
-    bool drawHelp;
 
 public: // Every one of these public functions are required.
-	MenuScene();
-	~MenuScene();
+	GameScene();
+	~GameScene();
 
 	virtual bool Init();
 	virtual bool DeInit();
@@ -25,7 +22,7 @@ public: // Every one of these public functions are required.
 	virtual bool Update(float dt);
 	virtual bool Draw();
 
-	bool MouseOver(uth::GameObject&);
+	//bool MouseOver(uth::GameObject&);
 };
 
-#endif //MenuScene_HPP
+#endif //GameScene_HPP

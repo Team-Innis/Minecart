@@ -10,6 +10,8 @@
 // Automatically called inside SceneManager.
 bool MenuScene::Init()
 {
+    drawHelp = false;
+
 	// Some shader must be loaded and set window to use it
 	m_shader.LoadShader("Shaders/Default.vert", "Shaders/Default.frag");
 	m_shader.Use();
@@ -78,25 +80,38 @@ bool MenuScene::DeInit()
 // Update loop. Gone trought once per frame.
 bool MenuScene::Update(float dt)
 {
-    if (MouseOver(startButton) && uthInput.Common.Event() == uth::InputEvent::CLICK)
-	{
-        uthSceneM.GoToScene(1);
-	}
-	else if (MouseOver(helpButton))
-	{
+    if (drawHelp)
+    {
+        if (uthInput.Keyboard.IsKeyDown(uth::Keyboard::Escape))
+            drawHelp = false;
+    }
+    else
+    {
+        bool click = uthInput.Common.Event() == uth::InputEvent::CLICK;
 
-	}
-    else if (MouseOver(exitButton) && uthInput.Common.Event() == uth::InputEvent::CLICK)
-	{
-        return false;
-	}
+        if (MouseOver(startButton) && click)
+	    {
+            uthSceneM.GoToScene(1);
+	    }
+	    else if (MouseOver(helpButton) && click)
+	    {
+            drawHelp = true;
+	    }
+        else if (MouseOver(exitButton) && click)
+	    {
+            return false;
+	    }
+    }
 
 	return true; // Update succeeded.
 }
 // Draw loop. All graphics are drawn during this loop.
 bool MenuScene::Draw()
 {
-	main->Draw(uthEngine.GetWindow());
+    if (drawHelp)
+        instructions->Draw(uthEngine.GetWindow());
+    else
+	    main->Draw(uthEngine.GetWindow());
 
 	return true; // Drawing succeeded.
 }

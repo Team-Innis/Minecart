@@ -2,6 +2,7 @@
 #include <UtH/Engine/DefaultScene.hpp> //Default Scene. (Empty)
 
 #include "../include/MenuScene.hpp" //Your scene header.
+#include "../include/GameScene.hpp"
 
 //Names and IDs for all scenes
 enum SceneName
@@ -21,8 +22,9 @@ void NewSceneFunc(int SceneID, uth::Scene* &CurScene)
 	case MENU:
 		CurScene = new MenuScene();
 		break;
-    //case GAME:
-    //    CurScene = new GameScene();
+    case GAME:
+        CurScene = new GameScene();
+        break;
 	default:
 		CurScene = new uth::DefaultScene();
 		break;

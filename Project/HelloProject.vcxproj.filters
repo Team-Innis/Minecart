@@ -17,9 +17,15 @@
     <ClCompile Include="source\MenuScene.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="source\GameScene.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\MenuScene.hpp">
+      <Filter>Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GameScene.hpp">
       <Filter>Includes</Filter>
     </ClInclude>
   </ItemGroup>
