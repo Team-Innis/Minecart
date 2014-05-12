@@ -16,6 +16,13 @@ private: // Just place everything else as private.
 
 	uth::TMX::Map gameMap;
 	uth::Camera* mainCamera;
+	uth::GameObject *player, *cart;
+	umath::vector2 touchPos;
+
+
+	int offsetY;
+	float speed;
+	int line;
 
 public: // Every one of these public functions are required.
 	GameScene();
@@ -26,8 +33,6 @@ public: // Every one of these public functions are required.
 
 	virtual bool Update(float dt);
 	virtual bool Draw();
-
-	//bool MouseOver(uth::GameObject&);
 };
 
 #endif //GameScene_HPP

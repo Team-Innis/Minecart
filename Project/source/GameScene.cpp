@@ -6,8 +6,7 @@
 #include <UtH/Platform/Input.hpp>
 #include <UtH/Engine/AnimatedSprite.hpp>
 
-// Main initialisation.
-// Automatically called inside SceneManager.
+
 bool GameScene::Init()
 {
 	// Some shader must be loaded and set window to use it
@@ -16,76 +15,66 @@ bool GameScene::Init()
 	uthEngine.GetWindow().SetShader(&m_shader);
     
 	gameMap.LoadFromFile("map.tmx");
-	mainCamera = new uth::Camera(umath::vector2(640,480),umath::vector2(1280,720));
+	const int mapOffX = (gameMap.GetTileWidth()*gameMap.GetWidth())
+			- (gameMap.GetTileWidth()/2)- (gameMap.GetTileWidth()*2);
+	const int mapOffY = (gameMap.GetTileHeight()*gameMap.GetHeight())
+		- (gameMap.GetTileWidth()/2) /*- (uthEngine.GetWindowResolution().y/2)*/;
+	offsetY = mapOffY;
+	mainCamera = new uth::Camera(umath::vector2(mapOffX,mapOffY),uthEngine.GetWindowResolution());
 	uthEngine.GetWindow().SetCamera(mainCamera);
 
-	return true;
-}
-// Main deinitialisation.
-// Automatically called inside SceneManager.
-bool GameScene::DeInit()
-{
+	speed = 100.f;
+	line = 3;
+
+	player = new uth::GameObject();
+	cart = new uth::GameObject();
+	cart->AddComponent(new uth::AnimatedSprite(new uth::Texture("minecartAnim.tga"),4,4,1));
+	player->AddComponent(new uth::Sprite("player.tga"));
+	player->transform.SetScale(0.5f);
+	cart->transform.SetScale(0.5f);
+	
+	touchPos = umath::vector2(player->transform.GetPosition().x, 0);
 	return true;
 }
 
-// Update loop. Gone trought once per frame.
+bool GameScene::DeInit()
+{
+	delete mainCamera;
+	delete player;
+	delete cart;
+
+	return true;
+}
+
+
 bool GameScene::Update(float dt)
 {
-    return true; // Update succeeded.
+	speed += dt;
+	mainCamera->Scroll(0,-dt*speed);
+
+	player->transform.SetPosition(line*gameMap.GetTileWidth(),mainCamera->GetPosition().y);
+	cart->transform.SetPosition(player->transform.GetPosition());
+
+    return true;
 }
-// Draw loop. All graphics are drawn during this loop.
+
 bool GameScene::Draw()
 {
 	gameMap.Draw(uthEngine.GetWindow());
-	return true; // Drawing succeeded.
+	cart->Draw(uthEngine.GetWindow());
+	player->Draw(uthEngine.GetWindow());
+
+
+	return true;
 }
 
-//Default constructor for initialising constant variables.
+
 GameScene::GameScene()
 {
 
 }
-//Default deconstrutor.
+
 GameScene::~GameScene()
 {
 
 }
-
-//bool GameScene::MouseOver(uth::GameObject& go)
-//{
-//	uth::AnimatedSprite* temp = dynamic_cast<uth::AnimatedSprite*>(go.GetComponent("AnimatedSprite"));
-//
-//	const umath::vector2 inputPos = umath::vector2(
-//		uthInput.Common.Position().x - uthEngine.GetWindow().GetSize().x/2,
-//		uthInput.Common.Position().y - uthEngine.GetWindow().GetSize().y/2);
-//
-//#if defined(UTH_SYSTEM_WINDOWS)
-//	const umath::vector2 mousePos = umath::vector2(
-//		uthInput.Mouse.Position().x - uthEngine.GetWindow().GetSize().x/2,
-//		uthInput.Mouse.Position().y - uthEngine.GetWindow().GetSize().y/2);
-//#endif
-//
-//	if( inputPos.x >= go.transform.GetPosition().x - go.transform.GetSize().x/2 &&
-//		inputPos.x <= go.transform.GetPosition().x + go.transform.GetSize().x/2 &&
-//		inputPos.y >= go.transform.GetPosition().y - go.transform.GetSize().y/2 &&
-//		inputPos.y <= go.transform.GetPosition().y + go.transform.GetSize().y/2
-//#if defined(UTH_SYSTEM_WINDOWS)
-//	||  mousePos.x >= go.transform.GetPosition().x - go.transform.GetSize().x/2 &&
-//		mousePos.x <= go.transform.GetPosition().x + go.transform.GetSize().x/2 &&
-//		mousePos.y >= go.transform.GetPosition().y - go.transform.GetSize().y/2 &&
-//		mousePos.y <= go.transform.GetPosition().y + go.transform.GetSize().y/2
-//#endif
-//		)
-//	{
-//		
-//		temp->ChangeAnimation(1,1,1,0);
-//
-//		return true;
-//	}
-//	else
-//	{
-//		temp->ChangeAnimation(0,1,0,0);
-//	}
-//
-//	return false;
-//}
