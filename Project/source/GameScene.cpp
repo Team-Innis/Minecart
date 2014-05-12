@@ -15,6 +15,9 @@ bool GameScene::Init()
 	m_shader.Use();
 	uthEngine.GetWindow().SetShader(&m_shader);
     
+	gameMap.LoadFromFile("map.tmx");
+	mainCamera = new uth::Camera(umath::vector2(640,480),umath::vector2(1280,720));
+	uthEngine.GetWindow().SetCamera(mainCamera);
 
 	return true;
 }
@@ -28,11 +31,13 @@ bool GameScene::DeInit()
 // Update loop. Gone trought once per frame.
 bool GameScene::Update(float dt)
 {
+	mainCamera->Update(dt);
     return true; // Update succeeded.
 }
 // Draw loop. All graphics are drawn during this loop.
 bool GameScene::Draw()
 {
+	gameMap.Draw(uthEngine.GetWindow());
 	return true; // Drawing succeeded.
 }
 

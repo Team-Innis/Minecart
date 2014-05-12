@@ -6,12 +6,16 @@
 #include <UtH/Core/Shader.hpp>
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Engine/Layer.hpp>
+#include <UtH/Engine/TMX/Map.hpp>
+#include <UtH/Renderer/Camera.hpp>
 
 class GameScene : public uth::Scene
 {
 private: // Just place everything else as private.
 	uth::Shader m_shader;
 
+	uth::TMX::Map gameMap;
+	uth::Camera* mainCamera;
 
 public: // Every one of these public functions are required.
 	GameScene();
