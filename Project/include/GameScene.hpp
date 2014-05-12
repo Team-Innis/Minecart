@@ -8,6 +8,7 @@
 #include <UtH/Engine/Layer.hpp>
 #include <UtH/Engine/TMX/Map.hpp>
 #include <UtH/Renderer/Camera.hpp>
+#include <Minimap.hpp>
 
 class GameScene : public uth::Scene
 {
@@ -16,6 +17,8 @@ private: // Just place everything else as private.
 
 	uth::TMX::Map gameMap;
 	uth::Camera* mainCamera;
+
+    Minimap m_minimap;
 
 public: // Every one of these public functions are required.
 	GameScene();

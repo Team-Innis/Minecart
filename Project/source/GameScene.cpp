@@ -19,6 +19,8 @@ bool GameScene::Init()
 	mainCamera = new uth::Camera(umath::vector2(640,480),umath::vector2(1280,720));
 	uthEngine.GetWindow().SetCamera(mainCamera);
 
+    m_minimap.Create(&gameMap, nullptr);
+
 	return true;
 }
 // Main deinitialisation.
@@ -31,12 +33,16 @@ bool GameScene::DeInit()
 // Update loop. Gone trought once per frame.
 bool GameScene::Update(float dt)
 {
+    m_minimap.Update(dt);
+
     return true; // Update succeeded.
 }
 // Draw loop. All graphics are drawn during this loop.
 bool GameScene::Draw()
 {
 	gameMap.Draw(uthEngine.GetWindow());
+
+    m_minimap.Draw(uthEngine.GetWindow());
 	return true; // Drawing succeeded.
 }
 
