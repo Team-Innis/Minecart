@@ -20,12 +20,18 @@
     <ClCompile Include="source\GameScene.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="source\Minimap.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\MenuScene.hpp">
       <Filter>Includes</Filter>
     </ClInclude>
     <ClInclude Include="include\GameScene.hpp">
+      <Filter>Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Minimap.hpp">
       <Filter>Includes</Filter>
     </ClInclude>
   </ItemGroup>

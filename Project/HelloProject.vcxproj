@@ -51,7 +51,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)../UtHEngine/extinclude/;$(SolutionDir)../UtHEngine/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)../UtHEngine/extinclude/;$(SolutionDir)../UtHEngine/include/;$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -69,7 +69,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)../UtHEngine/extinclude/;$(SolutionDir)../UtHEngine/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)../UtHEngine/extinclude/;$(SolutionDir)../UtHEngine/include/;$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -84,10 +84,12 @@
     <ClCompile Include="source\GameScene.cpp" />
     <ClCompile Include="source\MenuScene.cpp" />
     <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\Minimap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GameScene.hpp" />
     <ClInclude Include="include\MenuScene.hpp" />
+    <ClInclude Include="include\Minimap.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

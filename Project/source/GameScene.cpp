@@ -1,4 +1,4 @@
-#include "../include/GameScene.hpp"
+#include <GameScene.hpp>
 
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Platform/Debug.hpp> //WriteLog(...), works like printf.
@@ -31,7 +31,6 @@ bool GameScene::DeInit()
 // Update loop. Gone trought once per frame.
 bool GameScene::Update(float dt)
 {
-	mainCamera->Update(dt);
     return true; // Update succeeded.
 }
 // Draw loop. All graphics are drawn during this loop.

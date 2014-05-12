@@ -1,10 +1,12 @@
-#include "../include/MenuScene.hpp"
+#include <MenuScene.hpp>
 
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Platform/Debug.hpp> //WriteLog(...), works like printf.
 #include <UtH/Engine/Text.hpp>
 #include <UtH/Platform/Input.hpp>
 #include <UtH/Engine/AnimatedSprite.hpp>
+#include <UtH/Core/Randomizer.hpp>
+#include <vector>
 
 // Main initialisation.
 // Automatically called inside SceneManager.
@@ -54,7 +56,27 @@ bool MenuScene::Init()
 	startText->AddText(L"START");
 	helpText->AddText(L"HELP");
     exitText->AddText(L"EXIT");
-    bounceText->AddText(L"Legal in Finland!", umath::vector4(1, 0.96f, 0.4, 1.f));
+
+    std::wstring strings[] =
+    {
+        L"Legal in Finland",
+        L"Minecart!",
+        L"wow such game",
+        L"weeeeeeeeeeee",
+        L"Shepard's favorite!",
+        L"Under the Hood",
+        L"100% more coal!",
+        L"HL3 confirmed!",
+        L"std::vector<UtH>",
+        L"No annoying sounds!",
+        L"Cage approved!",
+        L"Technological superiority",
+        L"TEAM-INNIS!"
+    };
+
+    uth::Randomizer::SetSeed();
+    const int random = uth::Randomizer::GetInt(0, (sizeof(strings) / sizeof(std::wstring)) * 100);
+    bounceText->AddText(strings[random % ((sizeof(strings) / sizeof(std::wstring)) - 1)], umath::vector4(1, 0.96f, 0.4, 1.f));
 
 	//Creating layers
     bg.reset(new uth::Layer("Background", 0));
