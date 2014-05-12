@@ -10,6 +10,8 @@
 #include <UtH/Renderer/Camera.hpp>
 #include <Minimap.hpp>
 
+#include <utility>
+
 class GameScene : public uth::Scene
 {
 private: // Just place everything else as private.
@@ -18,7 +20,6 @@ private: // Just place everything else as private.
 	uth::TMX::Map gameMap;
 	uth::Camera* mainCamera;
 	uth::GameObject *player, *cart;
-	umath::vector2 touchPos;
 
 
 	int offsetY;
@@ -26,6 +27,8 @@ private: // Just place everything else as private.
 	int line;
 
     Minimap m_minimap;
+
+	const std::pair<bool, umath::vector2> pressFunc(const umath::rectangle &rect);
 
 public: // Every one of these public functions are required.
 	GameScene();

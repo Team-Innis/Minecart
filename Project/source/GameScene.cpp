@@ -33,7 +33,6 @@ bool GameScene::Init()
 	player->transform.SetScale(0.5f);
 	cart->transform.SetScale(0.5f);
 	
-	touchPos = umath::vector2(player->transform.GetPosition().x, 0);
 	return true;
 }
 
@@ -54,6 +53,13 @@ bool GameScene::Update(float dt)
 
 	player->transform.SetPosition(line*gameMap.GetTileWidth(),mainCamera->GetPosition().y);
 	cart->transform.SetPosition(player->transform.GetPosition());
+
+	if(pressFunc(umath::rectangle(player->transform.GetPosition(),128,128)).first)
+	{
+		WriteLog("Touched at %f %f\n",
+			pressFunc(umath::rectangle(player->transform.GetPosition(),128,128)).second.x,
+			pressFunc(umath::rectangle(player->transform.GetPosition(),128,128)).second.y);
+	}
 
     return true;
 }
@@ -77,4 +83,24 @@ GameScene::GameScene()
 GameScene::~GameScene()
 {
 
+}
+
+const std::pair<bool, umath::vector2> GameScene::pressFunc(const umath::rectangle &rect)
+{
+	if(uthInput.Common.Event() == uth::InputEvent::CLICK)
+	{
+		umath::vector2 pos = umath::vector2();
+		pos.x = uthInput.Common.Position().x/* + mainCamera->transform.GetPosition().x*/;
+		pos.y = -uthInput.Common.Position().y + mainCamera->transform.GetPosition().y
+			+ uthEngine.GetWindowResolution().y/2;
+
+		if(pos.x > rect.x && pos.y > rect.y &&
+			pos.x < rect.x+rect.width && pos.y < rect.y+rect.height)
+		{
+			return std::pair<bool, umath::vector2>(true, pos);
+		}
+
+	}
+
+	return std::pair<bool, umath::vector2>(false, umath::vector2());
 }
