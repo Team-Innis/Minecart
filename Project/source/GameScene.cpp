@@ -32,6 +32,8 @@ bool GameScene::Init()
 	player->AddComponent(new uth::Sprite("player.tga"));
 	player->transform.SetScale(0.5f);
 	cart->transform.SetScale(0.5f);
+
+    m_minimap.Create(&gameMap, player);
 	
 	return true;
 }
@@ -61,11 +63,14 @@ bool GameScene::Update(float dt)
 			pressFunc(umath::rectangle(player->transform.GetPosition(),128,128)).second.y);
 	}
 
+    m_minimap.Update(dt);
+
     return true;
 }
 
 bool GameScene::Draw()
 {
+    m_minimap.Draw(uthEngine.GetWindow());
 	gameMap.Draw(uthEngine.GetWindow());
 	cart->Draw(uthEngine.GetWindow());
 	player->Draw(uthEngine.GetWindow());

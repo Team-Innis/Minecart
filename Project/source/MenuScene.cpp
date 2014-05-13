@@ -31,9 +31,9 @@ bool MenuScene::Init()
     umath::vector2 res = uthEngine.GetWindow().GetSize();
     background.transform.SetScale(res.x / bgSprite->GetSize().x, res.y / bgSprite->GetSize().y);
 
-	uth::Sprite *titleSprite= new uth::Sprite("Minecartlogo2.tga");
+	uth::Sprite *titleSprite= new uth::Sprite("titleText.tga");
 	title.AddComponent(titleSprite);
-    title.transform.SetScale(0.68f, 0.68f);
+    title.transform.SetScale(0.66f, 0.66f);
 
 	uth::AnimatedSprite *animStart, *animHelp, *animExit;
 	uth::Texture *buttonTexture = new uth::Texture("ButtonSheet.tga");
@@ -105,8 +105,8 @@ bool MenuScene::Init()
 	sbText.transform.Move(x,-45.f);
 	hbText.transform.Move(x,45.f);
     exText.transform.Move(x, 135.f);
-    jumpText.transform.Move(title.transform.GetPosition().x + 200.f, title.transform.GetPosition().y + 25.f);
-    jumpText.transform.Rotate(30.f);
+    jumpText.transform.Move(title.transform.GetPosition().x + 250.f, title.transform.GetPosition().y + 25.f);
+    jumpText.transform.Rotate(26.f);
 
 	return true;
 }
@@ -131,9 +131,9 @@ bool MenuScene::Update(float dt)
 
         static float sine = 0.f;
         sine += 6.f * dt;
-        float wave = 0.25f * std::sinf(sine);
+        float wave = 0.22f * std::sinf(sine);
 
-        jumpText.transform.SetScale(0.8f + std::abs(wave));
+        jumpText.transform.SetScale(0.9f + std::abs(wave));
 
         if (MouseOver(startButton) && click)
 	    {
