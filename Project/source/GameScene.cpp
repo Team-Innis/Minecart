@@ -93,6 +93,9 @@ const std::pair<bool, umath::vector2> GameScene::pressFunc(const umath::rectangl
 		pos.x = uthInput.Common.Position().x/* + mainCamera->transform.GetPosition().x*/;
 		pos.y = -uthInput.Common.Position().y + mainCamera->transform.GetPosition().y
 			+ uthEngine.GetWindowResolution().y/2;
+		pos.x = uthInput.Common.Position().x;
+		pos.y = uthInput.Common.Position().y + mainCamera->transform.position.y
+			- uthEngine.GetWindowResolution().y/2 + gameMap.GetTileHeight()/2;
 
 		if(pos.x > rect.x && pos.y > rect.y &&
 			pos.x < rect.x+rect.width && pos.y < rect.y+rect.height)
