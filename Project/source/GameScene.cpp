@@ -32,7 +32,13 @@ bool GameScene::Init()
 	player->AddComponent(new uth::Sprite("player.tga"));
 	player->transform.SetScale(0.5f);
 	cart->transform.SetScale(0.5f);
-	
+
+	for(int i = 0; i < gameMap.objectGroups.at(0)->GetObjectsByType("switch")->size(); ++i)
+	{
+		switches.at(i) = (gameMap.objectGroups.at(0)->GetObjectsByType("switch")->at(i)->GetRectangle());
+		tmxObjects.at(i) = (gameMap.objectGroups.at(0)->GetObjectsByType("switch")->at(i));
+	}
+
 	return true;
 }
 
@@ -54,11 +60,13 @@ bool GameScene::Update(float dt)
 	player->transform.SetPosition(line*gameMap.GetTileWidth(),mainCamera->GetPosition().y);
 	cart->transform.SetPosition(player->transform.GetPosition());
 
-	if(pressFunc(umath::rectangle(player->transform.GetPosition(),128,128)).first)
+	for(int i = 0; i < switches.size(); ++i)
 	{
-		WriteLog("Touched at %f %f\n",
-			pressFunc(umath::rectangle(player->transform.GetPosition(),128,128)).second.x,
-			pressFunc(umath::rectangle(player->transform.GetPosition(),128,128)).second.y);
+		if(pressFunc(switches.at(i)).first)
+		{
+			WriteLog("Touched %s should move to lane %s\n",
+				tmxObjects.at(i)->GetName().c_str(), tmxObjects.at(i)->GetProperty("lane").c_str());
+		}
 	}
 
     return true;
@@ -90,9 +98,6 @@ const std::pair<bool, umath::vector2> GameScene::pressFunc(const umath::rectangl
 	if(uthInput.Common.Event() == uth::InputEvent::CLICK)
 	{
 		umath::vector2 pos = umath::vector2();
-		pos.x = uthInput.Common.Position().x/* + mainCamera->transform.GetPosition().x*/;
-		pos.y = -uthInput.Common.Position().y + mainCamera->transform.GetPosition().y
-			+ uthEngine.GetWindowResolution().y/2;
 		pos.x = uthInput.Common.Position().x;
 		pos.y = uthInput.Common.Position().y + mainCamera->transform.position.y
 			- uthEngine.GetWindowResolution().y/2 + gameMap.GetTileHeight()/2;
