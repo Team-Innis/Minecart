@@ -39,6 +39,8 @@ bool GameScene::Init()
 		tmxObjects.at(i) = (gameMap.objectGroups.at(0)->GetObjectsByType("switch")->at(i));
 	}
 
+    m_minimap.Create(&gameMap, player);
+
 	return true;
 }
 
@@ -69,11 +71,14 @@ bool GameScene::Update(float dt)
 		}
 	}
 
+    m_minimap.Update(dt);
+
     return true;
 }
 
 bool GameScene::Draw()
 {
+    m_minimap.Draw(uthEngine.GetWindow());
 	gameMap.Draw(uthEngine.GetWindow());
 	cart->Draw(uthEngine.GetWindow());
 	player->Draw(uthEngine.GetWindow());
