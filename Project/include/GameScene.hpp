@@ -9,6 +9,7 @@
 #include <UtH/Engine/TMX/Map.hpp>
 #include <UtH/Renderer/Camera.hpp>
 #include <Minimap.hpp>
+#include <array>
 
 #include <utility>
 
@@ -20,7 +21,8 @@ private: // Just place everything else as private.
 	uth::TMX::Map gameMap;
 	uth::Camera* mainCamera;
 	uth::GameObject *player, *cart;
-
+	std::array<umath::rectangle,7> switches;
+	std::array<uth::TMX::Object*,7> tmxObjects;
 
 	int offsetY;
 	float speed;
