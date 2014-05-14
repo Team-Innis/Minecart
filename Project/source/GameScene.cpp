@@ -36,10 +36,16 @@ bool GameScene::Init()
 	for(int i = 0; i < gameMap.objectGroups.at(0)->GetObjectsByType("switch")->size(); ++i)
 	{
 		switches.at(i) = (gameMap.objectGroups.at(0)->GetObjectsByType("switch")->at(i)->GetRectangle());
-		tmxObjects.at(i) = (gameMap.objectGroups.at(0)->GetObjectsByType("switch")->at(i));
+		tmxSwitches.at(i) = (gameMap.objectGroups.at(0)->GetObjectsByType("switch")->at(i));
+	}
+	for(int i = 0; i < gameMap.objectGroups.at(1)->GetObjectsByType("railarea")->size(); ++i)
+	{
+		rails.at(i) = (gameMap.objectGroups.at(1)->GetObjectsByType("railarea")->at(i)->GetRectangle());
+		tmxRails.at(i) = (gameMap.objectGroups.at(1)->GetObjectsByType("railarea")->at(i));
 	}
 
     m_minimap.Create(&gameMap, player);
+	switchlane = false;
 
 	return true;
 }
@@ -66,8 +72,41 @@ bool GameScene::Update(float dt)
 	{
 		if(pressFunc(switches.at(i)).first)
 		{
-			WriteLog("Touched %s should move to lane %s\n",
-				tmxObjects.at(i)->GetName().c_str(), tmxObjects.at(i)->GetProperty("lane").c_str());
+			switchlane = true;
+			break;
+		}
+	}
+
+	if(switchlane)
+	{
+		umath::rectangle playerRect(player->transform.position.x,player->transform.position.y,
+			player->transform.size.x*player->transform.GetScale().x,
+			player->transform.size.y*player->transform.GetScale().y);
+
+		for(int i = 0; i < rails.size(); ++i)
+		{
+			if(rails.at(i).Intersects(playerRect))
+			{
+				WriteLog("Player touched %s\n", tmxRails.at(i)->GetName().c_str());
+				direction = tmxRails.at(i)->GetProperty("direction");
+				switchlane = false;
+				break;
+			}
+		}
+	}
+
+	if(direction != "")
+	{
+		if(direction == "right")
+		{
+			line++;
+			direction = "";
+		}
+
+		else if(direction == "left")
+		{
+			line--;
+			direction = "";
 		}
 	}
 
@@ -100,6 +139,7 @@ GameScene::~GameScene()
 
 const std::pair<bool, umath::vector2> GameScene::pressFunc(const umath::rectangle &rect)
 {
+	
 	if(uthInput.Common.Event() == uth::InputEvent::CLICK)
 	{
 		umath::vector2 pos = umath::vector2();
@@ -114,6 +154,5 @@ const std::pair<bool, umath::vector2> GameScene::pressFunc(const umath::rectangl
 		}
 
 	}
-
 	return std::pair<bool, umath::vector2>(false, umath::vector2());
 }

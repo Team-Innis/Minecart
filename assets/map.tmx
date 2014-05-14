@@ -548,15 +548,60 @@
     <property name="lane" value="3"/>
    </properties>
   </object>
-  <object name="switch6" type="switch" x="29" y="547" width="73" height="44">
-   <properties>
-    <property name="lane" value="2"/>
-   </properties>
-  </object>
   <object name="switch7" type="switch" x="541" y="422" width="73" height="44">
    <properties>
     <property name="lane" value="5"/>
    </properties>
   </object>
+ </objectgroup>
+ <objectgroup name="rails" width="7" height="24">
+  <object name="rails1" type="railarea" x="386" y="2431" width="248" height="123">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object name="rails2" type="railarea" x="391" y="1930" width="248" height="123">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object name="rails3" type="railarea" x="257" y="1800" width="248" height="123">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object name="rails4" type="railarea" x="522" y="1164" width="248" height="123">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object name="rails5" type="railarea" x="391" y="909" width="248" height="123">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object name="rails6" type="railarea" x="266" y="776" width="248" height="123">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object name="rails7" type="railarea" x="390" y="265" width="248" height="123">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object name="rails8" type="railarea" x="527" y="1536" width="232" height="132">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="deaths" width="7" height="24">
+  <object name="death1" type="death" x="373" y="2219" width="139" height="120"/>
+  <object name="death2" type="death" x="135" y="1542" width="117" height="115"/>
+  <object name="death3" type="death" x="295" y="1305" width="315" height="215"/>
+  <object name="death4" type="death" x="647" y="914" width="115" height="139"/>
+  <object name="death5" type="death" x="140" y="512" width="116" height="121"/>
+  <object name="death6" type="death" x="381" y="131" width="141" height="107"/>
  </objectgroup>
 </map>
