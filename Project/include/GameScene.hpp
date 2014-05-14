@@ -8,6 +8,7 @@
 #include <UtH/Engine/Layer.hpp>
 #include <UtH/Engine/TMX/Map.hpp>
 #include <UtH/Renderer/Camera.hpp>
+#include <UtH/Engine/Particles/ParticleSystem.hpp>
 #include <Minimap.hpp>
 
 #include <array>
@@ -25,6 +26,8 @@ private: // Just place everything else as private.
 	std::array<uth::TMX::Object*,7> tmxSwitches;
 	std::array<umath::rectangle,8> rails;
 	std::array<uth::TMX::Object*,8> tmxRails;
+
+	uth::ParticleSystem pSystem;
 
 	int offsetY;
 	float speed;

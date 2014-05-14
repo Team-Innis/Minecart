@@ -5,6 +5,7 @@
 #include <UtH/Engine/Text.hpp>
 #include <UtH/Platform/Input.hpp>
 #include <UtH/Engine/AnimatedSprite.hpp>
+#include <UtH/Core/Randomizer.hpp>
 
 
 bool GameScene::Init()
@@ -47,6 +48,43 @@ bool GameScene::Init()
     m_minimap.Create(&gameMap, player);
 	switchlane = false;
 
+	uth::ParticleTemplate pTemplate;
+	pTemplate.SetTexture(new uth::Texture("partikkeli.tga"));
+	pTemplate.SetLifetime(0.25f);
+	pTemplate.SetSpeed(100, 400);
+	pTemplate.SetInitFunction([](uth::Particle &particle, uth::ParticleTemplate &particleTemplate)
+	{
+		umath::vector2 vec = particle.transform.GetPosition();
+
+		umath::vector2 vec2(uthInput.Common.Position().x + uthEngine.GetWindow().GetCamera().GetPosition().x - uthEngine.GetWindowResolution().x/2, 
+			uthInput.Common.Position().y + uthEngine.GetWindow().GetCamera().GetPosition().y - uthEngine.GetWindowResolution().y/2);
+
+		vec = (vec2 - vec);
+		vec = vec / vec.getLength();
+
+		particle.direction = (vec * uth::Randomizer::GetFloat(particleTemplate.minSpeed, particleTemplate.maxSpeed));
+		particle.direction.RotateDegrees(uth::Randomizer::GetFloat(-35, 35));
+
+		particle.transform.Rotate(particle.direction.getDegrees());
+
+		particle.transform.SetSize(1.5f, uth::Randomizer::GetFloat(4, 16));
+
+		particle.transform.SetPosition(vec2);
+		
+		float color = uth::Randomizer::GetFloat(0.8f, 1.0f);
+		particle.color = umath::vector4(color, color, color, 1.0f);
+	});
+	
+	uth::Affector* affector = new uth::Affector();
+	affector->SetUpdateFunc([](uth::Particle &particle, uth::ParticleTemplate &particleTemplate, float dt)
+	{
+		particle.transform.Move(particle.direction * dt);
+	});
+	pSystem.transform.SetPosition(mainCamera->GetPosition());
+	pSystem.SetTemplate(pTemplate);
+	pSystem.AddAffector(affector);
+
+
 	return true;
 }
 
@@ -67,11 +105,13 @@ bool GameScene::Update(float dt)
 
 	player->transform.SetPosition(line*gameMap.GetTileWidth(),mainCamera->GetPosition().y);
 	cart->transform.SetPosition(player->transform.GetPosition());
+	pSystem.transform = player->transform;
 
 	for(int i = 0; i < switches.size(); ++i)
 	{
 		if(pressFunc(switches.at(i)).first)
 		{
+			pSystem.Emit(15);
 			switchlane = true;
 			break;
 		}
@@ -110,6 +150,7 @@ bool GameScene::Update(float dt)
 		}
 	}
 
+	pSystem.Update(dt);
     m_minimap.Update(dt);
 
     return true;
@@ -117,11 +158,11 @@ bool GameScene::Update(float dt)
 
 bool GameScene::Draw()
 {
-    m_minimap.Draw(uthEngine.GetWindow());
 	gameMap.Draw(uthEngine.GetWindow());
 	cart->Draw(uthEngine.GetWindow());
 	player->Draw(uthEngine.GetWindow());
-
+	pSystem.Draw(uthEngine.GetWindow());
+    m_minimap.Draw(uthEngine.GetWindow());
 
 	return true;
 }
