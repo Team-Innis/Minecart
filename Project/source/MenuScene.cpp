@@ -177,7 +177,7 @@ MenuScene::~MenuScene()
 
 bool MenuScene::MouseOver(uth::GameObject& go)
 {
-	uth::AnimatedSprite* temp = dynamic_cast<uth::AnimatedSprite*>(go.GetComponent("AnimatedSprite"));
+	uth::AnimatedSprite* temp = go.GetComponent<uth::AnimatedSprite>("AnimatedSprite");
 
 	const umath::vector2 inputPos = umath::vector2(
 		uthInput.Common.Position().x - uthEngine.GetWindow().GetSize().x/2,
